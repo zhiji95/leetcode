@@ -1,10 +1,8 @@
 # leetcode
 A collection of my favorite Leetcode questions
 
+```395. Longest Substring with At Least K Repeating```
 
-**395. Longest Substring with At Least K Repeating **
-
-`    
 
 ```python
  class Solution:
@@ -32,5 +30,5 @@ A collection of my favorite Leetcode questions
                 temp = ''
             else:
                 temp += c
-        return max(result, self.longestSubstring(temp, k))`
+        return max(result, self.longestSubstring(temp, k))
 ```
