@@ -60,3 +60,41 @@ class Solution:
             tilt = left[1] + right[1] + abs(left[0] - right[0])
             return [summation, tilt]
 ```
+
+```662. Maximum Width of Binary Tree```
+```python
+class Solution:
+    def widthOfBinaryTree(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        else:
+            root.val = 1
+            dic = {}
+            self.traverse(root, 0,  dic)
+            
+                    
+            return max([max(l) - min(l) for l in dic.values()]) + 1
+            
+
+    def traverse(self, root, depth, dic):
+        if not root:
+            return 
+        else:
+            if depth in dic.keys():
+                if root.val not in dic[depth]:
+                    dic[depth].append(root.val)
+            else:
+                dic[depth] = [root.val]
+                
+            if root.left:
+                root.left.val = 2 * root.val - 1
+                self.traverse(root.left, depth + 1, dic)
+            if root.right:
+                root.right.val = 2 * root.val
+                self.traverse(root.right, depth + 1, dic)
+
+```
