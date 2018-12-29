@@ -1,7 +1,7 @@
 # leetcode
 A collection of my favorite Leetcode questions
 
-```248. Strobogrammatic Number III```
+### 248. Strobogrammatic Number III ###
 ```python
 class Solution:
     res = 0
@@ -39,7 +39,7 @@ class Solution:
 
        
 
-```395. Longest Substring with At Least K Repeating```
+### 395. Longest Substring with At Least K Repeating ### 
 ```python
  class Solution:
     def longestSubstring(self, s, k):
@@ -69,7 +69,7 @@ class Solution:
         return max(result, self.longestSubstring(temp, k))
 ```
 
-```399. Evaluate Division```
+### 399. Evaluate Division ###
 ```python
 class Solution(object):
     def calcEquation(self, equations, values, queries):
@@ -112,7 +112,32 @@ class Solution(object):
             return out
 ```
 
-```563. Binary Tree Tilt```
+### 562. Longest Line of Consecutive One in Matrix ###
+```python 
+class Solution(object):
+    def longestLine(self, M):
+        """
+        :type M: List[List[int]]
+        :rtype: int
+        """
+        if len(M) == 0:
+            return 0
+        
+        dp = [[ [0, 0, 0, 0] for j in range(len(M[0]))] for i in range(len(M))]
+        max_len = 0
+        for row in range(len(M)):
+            for col in range(len(M[0])):
+                if M[row][col] == 1:
+                    dp[row][col][0] = dp[row][col-1][0] + 1 if col > 0 else 1
+                    dp[row][col][1] = dp[row-1][col][1] + 1 if row > 0 else 1
+                    dp[row][col][2] = dp[row-1][col-1][2] + 1 if row > 0 and col > 0 else 1
+                    dp[row][col][3] = dp[row-1][col+1][3] + 1 if row > 0 and col < len(M[0])-1 else 1
+
+                max_len = max(max_len, dp[row][col][0], dp[row][col][1], dp[row][col][2], dp[row][col][3])
+                
+```
+
+### 563. Binary Tree Tilt ###
 ```python
 # Definition for a binary tree node.
 # class TreeNode:
@@ -139,7 +164,7 @@ class Solution:
             return [summation, tilt]
 ```
 
-```662. Maximum Width of Binary Tree```
+### 662. Maximum Width of Binary Tree ###
 ```python
 class Solution:
     def widthOfBinaryTree(self, root):
