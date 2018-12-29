@@ -69,6 +69,49 @@ class Solution:
         return max(result, self.longestSubstring(temp, k))
 ```
 
+```399. Evaluate Division```
+```python
+class Solution(object):
+    def calcEquation(self, equations, values, queries):
+            """
+            :type equations: List[List[str]]
+            :type values: List[float]
+            :type queries: List[List[str]]
+            :rtype: List[float]
+            """
+            neighbors = {}
+            for i, e in enumerate(equations):
+                if not e[0] in neighbors:
+                    neighbors[e[0]] = []
+                if not e[1] in neighbors:
+                    neighbors[e[1]] = []
+                neighbors[e[0]].append((e[1], values[i]))
+                neighbors[e[1]].append((e[0], 1/values[i]))
+
+            def query(a, b, visited):
+                if not a in neighbors: return 0
+                if not b in neighbors: return 0
+                if a == b: return 1.0
+                visited.add(a)
+                ans = 0
+                for neighbor in neighbors[a]:
+                    if neighbor[0] in visited: continue
+                    elif neighbor[0] == b:
+                        return neighbor[1]
+                    ans = neighbor[1] * query(neighbor[0], b, visited)
+                    if ans != 0:
+                        return ans
+                return 0
+
+            out = []
+            for q in queries:
+                visited = set()
+                out.append(query(q[0], q[1], visited))
+            for i, o in enumerate(out):
+                if o == 0: out[i] = -1.
+            return out
+```
+
 ```563. Binary Tree Tilt```
 ```python
 # Definition for a binary tree node.
