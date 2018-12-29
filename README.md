@@ -113,7 +113,7 @@ class Solution(object):
 ```
 
 ### 562. Longest Line of Consecutive One in Matrix ###
-``` [Link](https://leetcode.com/problems/longest-line-of-consecutive-one-in-matrix/) ```
+[Link](https://leetcode.com/problems/longest-line-of-consecutive-one-in-matrix/)
 ```python 
 class Solution(object):
     def longestLine(self, M):
