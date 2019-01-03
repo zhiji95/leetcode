@@ -202,3 +202,45 @@ class Solution:
                 self.traverse(root.right, depth + 1, dic)
 
 ```
+
+### 683. K Empty Slots ###
+##### xrange is faster than range  #####
+``` 
+range(n) creates a list containing all the integers 0..n-1. This is a problem if you do range(1000000), because you'll end up 
+with a >4Mb list. xrange deals with this by returning an object that pretends to be a list, but just works out the number 
+needed from the index asked for, and returns that.
+However:
+1. In python 3, range() does what xrange() used to do and xrange() does not exist. If you want to write code that will run on 
+both Python 2 and Python 3, you can't use xrange().
+2. range() can actually be faster in some cases - eg. if iterating over the same sequence multiple times.  xrange() has to 
+reconstruct the integer object every time, but range() will have real integer objects. (It will always perform worse in terms
+of memory however)
+3. xrange() isn't usable in all cases where a real list is needed. For instance, it doesn't support slices, or any list 
+methods.
+```
+```python
+class Solution(object):      
+    def kEmptySlots(self, flowers, k):
+        """
+        :type flowers: List[int]
+        :type k: int
+        :rtype: int
+        """
+        new = [0] * len(flowers)
+        for i,n in enumerate(flowers, 1):
+            new[n-1] = i
+        result = float('inf')
+        i = 0        
+        while i < len(flowers) - (k + 1):
+            right = new[i+k+1]
+            left = new[i]
+            for j in xrange(i+1, i + k + 1): 
+        # The anwser will not be accepted if you use range instead of xrange, thus xrange is faster
+                if new[j] < left or new[j]< right:
+                    i = j
+                    break
+            else:
+                result = min(result, max(left,right))
+                i = i+k+1
+        return result if result < float('inf') else -1
+```
