@@ -1,5 +1,46 @@
 # leetcode
 A collection of my favorite Leetcode questions
+### 222. Count Complete Tree Nodes ###
+###### lg(N) * lg(N) #####
+```python
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    count = 0
+    def countNodes(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+        left_depth = self.traverse(root.left)
+        right_depth = self.traverse(root.right)
+        if left_depth:
+            return 2 ** left_depth + self.countNodes(root.right)
+        else:
+            return 2 ** right_depth + self.countNodes(root.left)
+    def traverse(self, root):
+        if not root:
+            return 0
+        left = root
+        right = root
+        depth = 0
+        while left and right:
+            left = left.left
+            right = right.right
+            depth += 1
+        if left or right:
+            return 0
+        else:
+            return depth
+        
+```
 
 ### 248. Strobogrammatic Number III ###
 ```python
